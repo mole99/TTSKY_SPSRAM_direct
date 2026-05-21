@@ -196,5 +196,5 @@ add_pdn_connect \
 # Custom additions
 
 add_pdn_connect \
-   -grid macro \
-   -layers "$::env(PDN_VERTICAL_LAYER) met2"
+    -grid macro \
+    -layers "$::env(PDN_VERTICAL_LAYER) met2"

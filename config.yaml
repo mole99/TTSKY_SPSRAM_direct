@@ -17,7 +17,8 @@ RT_MAX_LAYER: met4
 FP_PDN_MULTILAYER: False
 
 PDN_CFG: dir::pdn/pdn_cfg.tcl
-PDN_VPITCH: 50
+PDN_VOFFSET: 10
+PDN_VPITCH: 30
 
 # Clock
 CLOCK_PORT: clk
@@ -30,10 +31,18 @@ BOTTOM_MARGIN_MULT: 1
 LEFT_MARGIN_MULT: 4
 RIGHT_MARGIN_MULT: 4
 
-# Width should be multiple of 0.46 (Metal2 pitch)
-# Height should be multiple of 0.68 (Metal3 pitch)
+# X should be multiple of 0.46 (Metal2 pitch)
+# Y should be multiple of 0.68 (Metal3 pitch)
 FP_MACRO_HORIZONTAL_HALO: expr::(0.46 * 8)
 FP_MACRO_VERTICAL_HALO: expr::(0.68 * 4)
+
+# Make sure the PDN is not cut off
+PDN_HORIZONTAL_HALO: 0
+PDN_VERTICAL_HALO: 0
+
+# Make sure only the actual pins
+# is written as LEF pins
+MAGIC_WRITE_LEF_PINONLY: true
 
 MACROS:
   SP6TSRAM128x8:
@@ -46,11 +55,8 @@ MACROS:
     instances:
       mem:
         location: [3, 3]
-        # Flip and rotate so that 
+        # Flip and rotate so that the pins are easy to access
         orientation: S
 
 PDN_MACRO_CONNECTIONS:
 - "mem VPWR VGND vdd vss"
-
-ERROR_ON_PDN_VIOLATIONS: False
-MAGIC_EXT_UNIQUE: notopports
